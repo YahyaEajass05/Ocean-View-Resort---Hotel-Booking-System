@@ -209,23 +209,8 @@ Detailed documentation available in:
 
 This is an academic project. For queries, contact the module leader.
 
-## 📄 License
 
-This project is developed for educational purposes as part of CIS6003 - Advanced Programming module.
 
-## 👨‍💻 Author
-
-**Student Name**  
-Student ID: [Your ID]  
-Module: CIS6003 Advanced Programming  
-Academic Year: 2025  
-Semester: 1
-
-## 📧 Contact
-
-For support or queries:
-- Email: priyanga@icbtcampus.edu.lk
-- Module: CIS6003 Advanced Programming
 
 ---
 
