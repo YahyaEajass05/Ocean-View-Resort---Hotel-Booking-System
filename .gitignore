@@ -17,6 +17,11 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+### Documentation & PDFs ###
+*.md
+!README.md
+*.pdf
+
 ### Eclipse ###
 .apt_generated
 .classpath
