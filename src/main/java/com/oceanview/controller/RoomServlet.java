@@ -5,7 +5,6 @@ import com.oceanview.service.RoomService;
 import com.oceanview.util.Constants;
 import com.oceanview.util.ValidationUtil;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,11 +21,11 @@ import java.util.Optional;
 /**
  * Room Servlet
  * Handles room operations
+ * URL Mapping: /room (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebServlet("/room")
 public class RoomServlet extends HttpServlet {
     
     private static final Logger logger = LoggerFactory.getLogger(RoomServlet.class);
@@ -43,6 +42,8 @@ public class RoomServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String action = request.getParameter("action");
+        String servletPath = request.getServletPath();
+        boolean isAdminPath = servletPath.contains("/admin/");
         
         if (action == null) {
             action = "list";
@@ -53,7 +54,7 @@ public class RoomServlet extends HttpServlet {
                 viewRoom(request, response);
                 break;
             case "list":
-                listRooms(request, response);
+                listRooms(request, response, isAdminPath);
                 break;
             case "search":
                 searchRooms(request, response);
@@ -71,7 +72,7 @@ public class RoomServlet extends HttpServlet {
                 deleteRoom(request, response);
                 break;
             default:
-                listRooms(request, response);
+                listRooms(request, response, isAdminPath);
         }
     }
     
@@ -229,12 +230,18 @@ public class RoomServlet extends HttpServlet {
     /**
      * List all rooms
      */
-    private void listRooms(HttpServletRequest request, HttpServletResponse response)
+    private void listRooms(HttpServletRequest request, HttpServletResponse response, boolean isAdminPath)
             throws ServletException, IOException {
         
         List<Room> rooms = roomService.getAllRooms();
         request.setAttribute("rooms", rooms);
-        request.getRequestDispatcher("/views/rooms/list.jsp").forward(request, response);
+        
+        // Forward to appropriate JSP based on user role/path
+        if (isAdminPath) {
+            request.getRequestDispatcher("/views/admin/rooms.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/views/rooms/list.jsp").forward(request, response);
+        }
     }
     
     /**
@@ -340,6 +347,6 @@ public class RoomServlet extends HttpServlet {
             session.setAttribute(Constants.ATTR_ERROR, "Failed to delete room");
         }
         
-        response.sendRedirect(request.getContextPath() + "/room?action=list");
+        response.sendRedirect(request.getContextPath() + "/admin/rooms");
     }
 }

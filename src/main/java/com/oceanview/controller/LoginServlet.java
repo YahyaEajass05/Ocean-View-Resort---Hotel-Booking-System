@@ -4,7 +4,6 @@ import com.oceanview.model.User;
 import com.oceanview.service.AuthenticationService;
 import com.oceanview.util.Constants;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,11 +17,11 @@ import java.util.Optional;
 /**
  * Login Servlet
  * Handles user authentication
+ * URL Mapping: /login (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     
     private static final Logger logger = LoggerFactory.getLogger(LoginServlet.class);

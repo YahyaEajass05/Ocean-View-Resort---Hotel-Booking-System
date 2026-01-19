@@ -2,7 +2,6 @@ package com.oceanview.filter;
 
 import com.oceanview.util.Constants;
 import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -14,11 +13,11 @@ import java.io.IOException;
 /**
  * Authentication Filter
  * Checks if user is logged in before accessing protected resources
+ * URL Patterns: /admin/*, /staff/*, /guest/* (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebFilter(urlPatterns = {"/admin/*", "/staff/*", "/guest/*"})
 public class AuthenticationFilter implements Filter {
     
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);

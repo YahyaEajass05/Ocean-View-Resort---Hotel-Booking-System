@@ -6,7 +6,6 @@ import com.oceanview.service.AuthenticationService;
 import com.oceanview.util.Constants;
 import com.oceanview.util.ValidationUtil;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,11 +21,11 @@ import java.util.Optional;
 /**
  * User Servlet
  * Handles user management operations (Admin only)
+ * URL Mapping: /user (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebServlet("/user")
 public class UserServlet extends HttpServlet {
     
     private static final Logger logger = LoggerFactory.getLogger(UserServlet.class);
@@ -95,6 +94,18 @@ public class UserServlet extends HttpServlet {
         try {
             List<User> users = userDAO.findAll();
             request.setAttribute("users", users);
+            
+            // Calculate statistics for dashboard
+            long totalUsers = users.size();
+            long adminCount = users.stream().filter(u -> u.getRole() == User.Role.ADMIN).count();
+            long staffCount = users.stream().filter(u -> u.getRole() == User.Role.STAFF).count();
+            long guestCount = users.stream().filter(u -> u.getRole() == User.Role.GUEST).count();
+            
+            request.setAttribute("totalUsers", totalUsers);
+            request.setAttribute("adminCount", adminCount);
+            request.setAttribute("staffCount", staffCount);
+            request.setAttribute("guestCount", guestCount);
+            
             request.getRequestDispatcher("/views/admin/users.jsp").forward(request, response);
             
         } catch (SQLException e) {

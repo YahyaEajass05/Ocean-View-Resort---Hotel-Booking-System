@@ -6,7 +6,6 @@ import com.oceanview.service.ReservationService;
 import com.oceanview.util.Constants;
 import com.oceanview.util.ValidationUtil;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,11 +21,11 @@ import java.util.Optional;
 /**
  * Reservation Servlet
  * Handles reservation operations
+ * URL Mapping: /reservation (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebServlet("/reservation")
 public class ReservationServlet extends HttpServlet {
     
     private static final Logger logger = LoggerFactory.getLogger(ReservationServlet.class);

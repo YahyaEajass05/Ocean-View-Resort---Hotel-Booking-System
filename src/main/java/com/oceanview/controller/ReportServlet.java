@@ -10,7 +10,6 @@ import com.oceanview.service.RoomService;
 import com.oceanview.util.Constants;
 import com.oceanview.util.DateUtil;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,11 +27,11 @@ import java.util.stream.Collectors;
 /**
  * Report Servlet
  * Generates various reports for the hotel management system
+ * URL Mapping: /report (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebServlet("/report")
 public class ReportServlet extends HttpServlet {
     
     private static final Logger logger = LoggerFactory.getLogger(ReportServlet.class);

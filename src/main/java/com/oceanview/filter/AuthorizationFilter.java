@@ -3,7 +3,6 @@ package com.oceanview.filter;
 import com.oceanview.model.User;
 import com.oceanview.util.Constants;
 import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -15,11 +14,11 @@ import java.io.IOException;
 /**
  * Authorization Filter
  * Checks if user has the required role to access specific resources
+ * URL Patterns: /admin/*, /staff/* (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebFilter(urlPatterns = {"/admin/*", "/staff/*"})
 public class AuthorizationFilter implements Filter {
     
     private static final Logger logger = LoggerFactory.getLogger(AuthorizationFilter.class);

@@ -5,7 +5,6 @@ import com.oceanview.model.Review;
 import com.oceanview.model.User;
 import com.oceanview.util.Constants;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,11 +20,11 @@ import java.util.Optional;
 /**
  * Review Servlet
  * Handles guest reviews and ratings
+ * URL Mapping: /review (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebServlet("/review")
 public class ReviewServlet extends HttpServlet {
     
     private static final Logger logger = LoggerFactory.getLogger(ReviewServlet.class);

@@ -1,11 +1,8 @@
 package com.oceanview.filter;
 
-import com.oceanview.dao.AuditLogDAO;
-import com.oceanview.model.AuditLog;
 import com.oceanview.model.User;
 import com.oceanview.util.Constants;
 import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -16,19 +13,17 @@ import java.io.IOException;
 /**
  * Logging Filter
  * Logs all HTTP requests for monitoring and audit purposes
+ * URL Pattern: /* (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebFilter("/*")
 public class LoggingFilter implements Filter {
     
     private static final Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
-    private AuditLogDAO auditLogDAO;
     
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        this.auditLogDAO = new AuditLogDAO();
         logger.info("LoggingFilter initialized");
     }
     
@@ -90,30 +85,43 @@ public class LoggingFilter implements Filter {
     
     /**
      * Create audit log entry
+     * Note: This creates audit logs in database. Currently logs to SLF4J only.
+     * Uncomment database code once AuditLogDAO is available.
      */
     private void createAuditLog(HttpServletRequest request, String uri, String ipAddress) {
         try {
             HttpSession session = request.getSession(false);
             User user = null;
+            String username = "anonymous";
             
             if (session != null) {
                 user = (User) session.getAttribute(Constants.SESSION_USER);
-            }
-            
-            AuditLog log = new AuditLog();
-            
-            if (user != null) {
-                log.setUserId(user.getUserId());
+                if (user != null) {
+                    username = user.getUsername();
+                }
             }
             
             // Determine action from URI
             String action = determineAction(uri);
+            
+            // Log to SLF4J (file-based logging)
+            logger.info("AUDIT: User={}, Action={}, URI={}, Method={}, IP={}", 
+                       username, action, uri, request.getMethod(), ipAddress);
+            
+            // TODO: Enable database audit logging once database is set up
+            // Uncomment below to enable database audit logs:
+            /*
+            AuditLogDAO auditLogDAO = new AuditLogDAO();
+            AuditLog log = new AuditLog();
+            if (user != null) {
+                log.setUserId(user.getUserId());
+            }
             log.setAction(action);
             log.setEntityType("HTTP_REQUEST");
             log.setDetails(String.format("URI: %s, Method: %s", uri, request.getMethod()));
             log.setIpAddress(ipAddress);
-            
             auditLogDAO.create(log);
+            */
             
         } catch (Exception e) {
             logger.error("Error creating audit log", e);

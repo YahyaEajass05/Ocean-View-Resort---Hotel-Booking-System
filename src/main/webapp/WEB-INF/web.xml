@@ -209,6 +209,32 @@
     </servlet-mapping>
 
     <!-- ========================================= -->
+    <!-- SERVLETS - Offers -->
+    <!-- ========================================= -->
+
+    <servlet>
+        <servlet-name>OfferServlet</servlet-name>
+        <servlet-class>com.oceanview.controller.OfferServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OfferServlet</servlet-name>
+        <url-pattern>/offer</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
+    <!-- SERVLETS - Settings -->
+    <!-- ========================================= -->
+
+    <servlet>
+        <servlet-name>SettingsServlet</servlet-name>
+        <servlet-class>com.oceanview.controller.SettingsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SettingsServlet</servlet-name>
+        <url-pattern>/settings</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
     <!-- ERROR PAGES -->
     <!-- ========================================= -->
 
@@ -231,6 +257,22 @@
         <exception-type>java.lang.Exception</exception-type>
         <location>/views/error/error.jsp</location>
     </error-page>
+
+    <!-- ========================================= -->
+    <!-- SECURITY ROLES -->
+    <!-- ========================================= -->
+    
+    <security-role>
+        <role-name>ADMIN</role-name>
+    </security-role>
+    
+    <security-role>
+        <role-name>STAFF</role-name>
+    </security-role>
+    
+    <security-role>
+        <role-name>GUEST</role-name>
+    </security-role>
 
     <!-- ========================================= -->
     <!-- SECURITY CONSTRAINTS -->

@@ -6,7 +6,6 @@ import com.oceanview.service.RoomService;
 import com.oceanview.service.BillingService;
 import com.oceanview.util.Constants;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,11 +18,11 @@ import java.io.IOException;
 /**
  * Dashboard Servlet
  * Provides dashboard data for different user roles
+ * URL Mapping: /dashboard (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebServlet("/dashboard")
 public class DashboardServlet extends HttpServlet {
     
     private static final Logger logger = LoggerFactory.getLogger(DashboardServlet.class);
@@ -70,6 +69,9 @@ public class DashboardServlet extends HttpServlet {
         try {
             // Room statistics
             int[] roomStats = roomService.getRoomStatistics();
+            int totalRooms = roomStats[0] + roomStats[1] + roomStats[2] + roomStats[3];
+            
+            request.setAttribute("totalRooms", totalRooms);
             request.setAttribute("availableRooms", roomStats[0]);
             request.setAttribute("occupiedRooms", roomStats[1]);
             request.setAttribute("reservedRooms", roomStats[2]);
@@ -88,9 +90,24 @@ public class DashboardServlet extends HttpServlet {
             
             // Revenue
             double totalRevenue = billingService.getTotalRevenue();
+            double monthlyRevenue = totalRevenue; // Simplified - use current total as monthly
             request.setAttribute("totalRevenue", totalRevenue);
+            request.setAttribute("monthlyRevenue", monthlyRevenue);
+            
+            // Total guests (unique guests from all reservations)
+            int totalGuests = reservationService.getAllReservations().size(); // Simplified
+            request.setAttribute("totalGuests", totalGuests);
+            
+            // Occupancy rate
+            double occupancyRate = totalRooms > 0 ? ((double) roomStats[1] / totalRooms) * 100 : 0.0;
+            request.setAttribute("occupancyRate", occupancyRate);
+            
+            // Pending reviews (simplified - count recent reservations)
+            int pendingReviews = 0;
+            request.setAttribute("pendingReviews", pendingReviews);
             
             // Recent activities
+            request.setAttribute("recentReservations", reservationService.getAllReservations());
             request.setAttribute("todayCheckInsList", reservationService.getTodayCheckIns());
             request.setAttribute("todayCheckOutsList", reservationService.getTodayCheckOuts());
             

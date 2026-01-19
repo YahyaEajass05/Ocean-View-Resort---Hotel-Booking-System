@@ -8,7 +8,6 @@ import com.oceanview.service.EmailService;
 import com.oceanview.util.Constants;
 import com.oceanview.util.ValidationUtil;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,11 +19,11 @@ import java.io.IOException;
 /**
  * Register Servlet
  * Handles user registration
+ * URL Mapping: /register (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
     
     private static final Logger logger = LoggerFactory.getLogger(RegisterServlet.class);

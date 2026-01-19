@@ -187,6 +187,19 @@
 
     <build>
         <finalName>oceanview-resort</finalName>
+        
+        <!-- Resources Configuration -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.sql</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        
         <plugins>
             <!-- Maven Compiler Plugin -->
             <plugin>

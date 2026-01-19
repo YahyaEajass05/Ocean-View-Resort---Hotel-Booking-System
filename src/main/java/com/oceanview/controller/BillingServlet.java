@@ -7,7 +7,6 @@ import com.oceanview.service.BillingService;
 import com.oceanview.service.ReservationService;
 import com.oceanview.util.Constants;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,11 +21,11 @@ import java.util.Optional;
 /**
  * Billing Servlet
  * Handles payment and billing operations
+ * URL Mapping: /billing (configured in web.xml)
  * 
  * @author Ocean View Resort Development Team
  * @version 1.0.0
  */
-@WebServlet("/billing")
 public class BillingServlet extends HttpServlet {
     
     private static final Logger logger = LoggerFactory.getLogger(BillingServlet.class);
