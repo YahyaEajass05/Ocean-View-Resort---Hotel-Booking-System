@@ -31,6 +31,8 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String fullName;
+    private String firstName;
+    private String lastName;
     private String phone;
     private Role role;
     private Status status;
@@ -93,6 +95,28 @@ public class User implements Serializable {
     
     public void setFullName(String fullName) {
         this.fullName = fullName;
+        // Auto-populate firstName and lastName from fullName if needed
+        if (fullName != null && fullName.contains(" ")) {
+            String[] parts = fullName.split(" ", 2);
+            this.firstName = parts[0];
+            this.lastName = parts[1];
+        }
+    }
+    
+    public String getFirstName() {
+        return firstName != null ? firstName : (fullName != null && fullName.contains(" ") ? fullName.split(" ")[0] : fullName);
+    }
+    
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    
+    public String getLastName() {
+        return lastName != null ? lastName : (fullName != null && fullName.contains(" ") ? fullName.substring(fullName.indexOf(" ") + 1) : "");
+    }
+    
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
     
     public String getPhone() {

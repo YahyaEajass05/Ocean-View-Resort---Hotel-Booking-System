@@ -22,13 +22,13 @@ public class OfferDAO extends BaseDAO {
     // SQL Queries
     private static final String INSERT_OFFER = 
         "INSERT INTO offers (title, description, discount_type, discount_value, " +
-        "start_date, end_date, applicable_rooms, min_nights, status) " +
-        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        "start_date, end_date, applicable_rooms, min_nights, promo_code, used_count, max_uses, status) " +
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     private static final String UPDATE_OFFER = 
         "UPDATE offers SET title = ?, description = ?, discount_type = ?, " +
         "discount_value = ?, start_date = ?, end_date = ?, applicable_rooms = ?, " +
-        "min_nights = ?, status = ? WHERE offer_id = ?";
+        "min_nights = ?, promo_code = ?, used_count = ?, max_uses = ?, status = ? WHERE offer_id = ?";
     
     private static final String UPDATE_STATUS = 
         "UPDATE offers SET status = ? WHERE offer_id = ?";
@@ -76,7 +76,14 @@ public class OfferDAO extends BaseDAO {
             stmt.setDate(6, Date.valueOf(offer.getEndDate()));
             stmt.setString(7, offer.getApplicableRooms());
             stmt.setInt(8, offer.getMinNights());
-            stmt.setString(9, offer.getStatus().name());
+            stmt.setString(9, offer.getPromoCode());
+            stmt.setInt(10, offer.getUsedCount());
+            if (offer.getMaxUses() != null) {
+                stmt.setInt(11, offer.getMaxUses());
+            } else {
+                stmt.setNull(11, Types.INTEGER);
+            }
+            stmt.setString(12, offer.getStatus().name());
             
             int affectedRows = stmt.executeUpdate();
             
@@ -120,8 +127,15 @@ public class OfferDAO extends BaseDAO {
             stmt.setDate(6, Date.valueOf(offer.getEndDate()));
             stmt.setString(7, offer.getApplicableRooms());
             stmt.setInt(8, offer.getMinNights());
-            stmt.setString(9, offer.getStatus().name());
-            stmt.setInt(10, offer.getOfferId());
+            stmt.setString(9, offer.getPromoCode());
+            stmt.setInt(10, offer.getUsedCount());
+            if (offer.getMaxUses() != null) {
+                stmt.setInt(11, offer.getMaxUses());
+            } else {
+                stmt.setNull(11, Types.INTEGER);
+            }
+            stmt.setString(12, offer.getStatus().name());
+            stmt.setInt(13, offer.getOfferId());
             
             int affectedRows = stmt.executeUpdate();
             logger.info("Offer updated: ID={}, affected rows={}", offer.getOfferId(), affectedRows);
@@ -313,6 +327,15 @@ public class OfferDAO extends BaseDAO {
         offer.setEndDate(rs.getDate("end_date").toLocalDate());
         offer.setApplicableRooms(rs.getString("applicable_rooms"));
         offer.setMinNights(rs.getInt("min_nights"));
+        offer.setPromoCode(rs.getString("promo_code"));
+        offer.setUsedCount(rs.getInt("used_count"));
+        
+        // Handle nullable max_uses
+        int maxUses = rs.getInt("max_uses");
+        if (!rs.wasNull()) {
+            offer.setMaxUses(maxUses);
+        }
+        
         offer.setStatus(Offer.OfferStatus.valueOf(rs.getString("status")));
         
         Timestamp createdAt = rs.getTimestamp("created_at");

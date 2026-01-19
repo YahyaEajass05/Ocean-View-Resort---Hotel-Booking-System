@@ -103,10 +103,14 @@ CREATE TABLE offers (
     end_date DATE NOT NULL,
     applicable_rooms TEXT COMMENT 'Room types in JSON array format',
     min_nights INT DEFAULT 1,
-    status ENUM('ACTIVE', 'INACTIVE', 'EXPIRED') NOT NULL DEFAULT 'ACTIVE',
+    promo_code VARCHAR(50) UNIQUE,
+    used_count INT DEFAULT 0,
+    max_uses INT DEFAULT NULL,
+    status ENUM('ACTIVE', 'INACTIVE', 'EXPIRED', 'SCHEDULED') NOT NULL DEFAULT 'ACTIVE',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_status (status),
-    INDEX idx_dates (start_date, end_date)
+    INDEX idx_dates (start_date, end_date),
+    INDEX idx_promo_code (promo_code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================

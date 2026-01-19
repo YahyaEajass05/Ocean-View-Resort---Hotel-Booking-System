@@ -32,6 +32,7 @@ public class Room implements Serializable {
     private Integer floor;
     private Integer capacity;
     private BigDecimal pricePerNight;
+    private Integer size; // Room size in square meters
     private String description;
     private String amenities;
     private String imageUrl;
@@ -103,6 +104,23 @@ public class Room implements Serializable {
     
     public void setPricePerNight(BigDecimal pricePerNight) {
         this.pricePerNight = pricePerNight;
+    }
+    
+    public Integer getSize() {
+        return size;
+    }
+    
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+    
+    // Alias method for JSP compatibility
+    public Integer getFloorNumber() {
+        return floor;
+    }
+    
+    public void setFloorNumber(Integer floorNumber) {
+        this.floor = floorNumber;
     }
     
     public String getDescription() {

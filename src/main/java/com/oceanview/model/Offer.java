@@ -23,12 +23,13 @@ public class Offer implements Serializable {
     
     // Offer Status Enum
     public enum OfferStatus {
-        ACTIVE, INACTIVE, EXPIRED
+        ACTIVE, INACTIVE, EXPIRED, SCHEDULED
     }
     
     // Fields
     private Integer offerId;
     private String title;
+    private String offerName; // Alias for title
     private String description;
     private DiscountType discountType;
     private BigDecimal discountValue;
@@ -36,15 +37,23 @@ public class Offer implements Serializable {
     private LocalDate endDate;
     private String applicableRooms;
     private Integer minNights;
+    private Integer minStayNights; // Alias for minNights
+    private String promoCode;
+    private Integer usedCount;
+    private Integer maxUses;
     private OfferStatus status;
+    private OfferStatus offerStatus; // Alias for status
     private LocalDateTime createdAt;
     
     // Constructors
     public Offer() {
         this.status = OfferStatus.ACTIVE;
+        this.offerStatus = OfferStatus.ACTIVE;
         this.createdAt = LocalDateTime.now();
         this.discountValue = BigDecimal.ZERO;
         this.minNights = 1;
+        this.minStayNights = 1;
+        this.usedCount = 0;
     }
     
     public Offer(String title, DiscountType discountType, BigDecimal discountValue, 
@@ -72,6 +81,16 @@ public class Offer implements Serializable {
     
     public void setTitle(String title) {
         this.title = title;
+        this.offerName = title; // Keep in sync
+    }
+    
+    public String getOfferName() {
+        return offerName != null ? offerName : title;
+    }
+    
+    public void setOfferName(String offerName) {
+        this.offerName = offerName;
+        this.title = offerName; // Keep in sync
     }
     
     public String getDescription() {
@@ -128,6 +147,40 @@ public class Offer implements Serializable {
     
     public void setMinNights(Integer minNights) {
         this.minNights = minNights;
+        this.minStayNights = minNights; // Keep in sync
+    }
+    
+    public Integer getMinStayNights() {
+        return minStayNights != null ? minStayNights : minNights;
+    }
+    
+    public void setMinStayNights(Integer minStayNights) {
+        this.minStayNights = minStayNights;
+        this.minNights = minStayNights; // Keep in sync
+    }
+    
+    public String getPromoCode() {
+        return promoCode;
+    }
+    
+    public void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
+    }
+    
+    public Integer getUsedCount() {
+        return usedCount != null ? usedCount : 0;
+    }
+    
+    public void setUsedCount(Integer usedCount) {
+        this.usedCount = usedCount;
+    }
+    
+    public Integer getMaxUses() {
+        return maxUses;
+    }
+    
+    public void setMaxUses(Integer maxUses) {
+        this.maxUses = maxUses;
     }
     
     public OfferStatus getStatus() {
@@ -136,6 +189,16 @@ public class Offer implements Serializable {
     
     public void setStatus(OfferStatus status) {
         this.status = status;
+        this.offerStatus = status; // Keep in sync
+    }
+    
+    public OfferStatus getOfferStatus() {
+        return offerStatus != null ? offerStatus : status;
+    }
+    
+    public void setOfferStatus(OfferStatus offerStatus) {
+        this.offerStatus = offerStatus;
+        this.status = offerStatus; // Keep in sync
     }
     
     public LocalDateTime getCreatedAt() {
