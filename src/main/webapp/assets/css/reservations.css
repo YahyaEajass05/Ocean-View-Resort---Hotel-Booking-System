@@ -1,0 +1,222 @@
+/* ===================================
+   RESERVATIONS PAGE STYLES
+   =================================== */
+
+.reservations-page {
+    padding: var(--spacing-xxl) 0;
+    background-color: var(--light-gray);
+    min-height: calc(100vh - 400px);
+}
+
+.filter-tabs {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+    overflow-x: auto;
+}
+
+.tab-btn {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--white);
+    border: 2px solid var(--light-gray);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    border-color: var(--ocean-blue);
+    color: var(--ocean-blue);
+}
+
+.tab-btn.active {
+    background-color: var(--ocean-blue);
+    border-color: var(--ocean-blue);
+    color: var(--white);
+}
+
+.reservations-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.reservation-item {
+    transition: opacity var(--transition-base);
+}
+
+.reservation-card-full {
+    background-color: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    display: flex;
+    transition: all var(--transition-base);
+}
+
+.reservation-card-full:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.reservation-image-large {
+    width: 300px;
+    height: auto;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.reservation-image-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.status-badge {
+    position: absolute;
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.reservation-content {
+    flex: 1;
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+}
+
+.reservation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-lg);
+}
+
+.reservation-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--ocean-dark);
+}
+
+.reservation-id {
+    font-size: 0.875rem;
+    color: var(--gray);
+    margin: var(--spacing-xs) 0 0 0;
+}
+
+.reservation-price {
+    text-align: right;
+}
+
+.price-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--gray);
+    margin-bottom: var(--spacing-xs);
+}
+
+.price-value {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--ocean-blue);
+}
+
+.reservation-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.detail-item i {
+    font-size: 1.25rem;
+    color: var(--ocean-blue);
+    width: 30px;
+    text-align: center;
+}
+
+.detail-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--gray);
+    text-transform: uppercase;
+}
+
+.detail-value {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--dark-gray);
+}
+
+.special-requests {
+    background-color: var(--light-gray);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.special-requests strong {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    color: var(--ocean-dark);
+}
+
+.special-requests p {
+    margin: 0;
+    color: var(--dark-gray);
+    font-size: 0.875rem;
+}
+
+.reservation-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .reservation-card-full {
+        flex-direction: column;
+    }
+    
+    .reservation-image-large {
+        width: 100%;
+        height: 250px;
+    }
+    
+    .reservation-header {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+    
+    .reservation-price {
+        text-align: left;
+    }
+    
+    .reservation-details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .reservation-actions {
+        flex-direction: column;
+    }
+    
+    .reservation-actions .btn {
+        width: 100%;
+    }
+}

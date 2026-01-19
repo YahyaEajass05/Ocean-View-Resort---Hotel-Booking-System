@@ -1,0 +1,114 @@
+/* Ocean View Resort - Date Picker Styles */
+
+.datepicker-input {
+    cursor: pointer;
+}
+
+.datepicker-calendar {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 280px;
+    z-index: 1000;
+    user-select: none;
+}
+
+.datepicker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: linear-gradient(135deg, #006994, #4A90A4);
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+.datepicker-prev,
+.datepicker-next {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+}
+
+.datepicker-prev:hover,
+.datepicker-next:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.datepicker-title {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.datepicker-body {
+    padding: 12px;
+}
+
+.datepicker-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.datepicker-day-name {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    padding: 4px 0;
+}
+
+.datepicker-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.datepicker-day {
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.datepicker-day:not(.other-month):not(.disabled):hover {
+    background: #e3f2fd;
+    color: #006994;
+}
+
+.datepicker-day.today {
+    font-weight: 600;
+    color: #006994;
+    border: 1px solid #006994;
+}
+
+.datepicker-day.selected {
+    background: #006994;
+    color: white;
+    font-weight: 600;
+}
+
+.datepicker-day.other-month {
+    color: #ccc;
+    cursor: default;
+}
+
+.datepicker-day.disabled {
+    color: #ddd;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.datepicker-day.disabled:hover {
+    background: none;
+}

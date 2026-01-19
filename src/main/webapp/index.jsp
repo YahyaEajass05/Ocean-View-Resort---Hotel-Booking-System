@@ -1,235 +1,222 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ocean View Resort - Welcome</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
-    
-    <style>
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(rgba(30, 58, 138, 0.7), rgba(30, 58, 138, 0.7)),
-                        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920') center/cover;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            animation: fadeIn 1s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .hero-content h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            animation: slideDown 1s ease-out;
-        }
-        
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        .hero-content p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            animation: slideUp 1s ease-out;
-        }
-        
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        .btn-primary {
-            background-color: #f59e0b;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            background-color: #d97706;
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        
-        /* Features Section */
-        .features-section {
-            padding: 80px 0;
-            background-color: #f3f4f6;
-        }
-        
-        .feature-card {
-            text-align: center;
-            padding: 30px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            margin: 20px 0;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            color: #1e3a8a;
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            color: #1e3a8a;
-            margin-bottom: 15px;
-        }
-    </style>
-</head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-hotel"></i> Ocean View Resort
+<%
+    String contextPath = request.getContextPath();
+%>
+
+<jsp:include page="views/common/header.jsp">
+    <jsp:param name="title" value="Home" />
+    <jsp:param name="css" value="home" />
+    <jsp:param name="active" value="home" />
+</jsp:include>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Welcome to Ocean View Resort</h1>
+        <p class="hero-subtitle">Experience Luxury by the Ocean</p>
+        <div class="hero-cta">
+            <a href="<%= contextPath %>/rooms" class="btn btn-primary btn-lg">
+                <i class="fas fa-search"></i> Explore Rooms
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <a href="<%= contextPath %>/about" class="btn btn-outline btn-lg">
+                <i class="fas fa-info-circle"></i> Learn More
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Search Section -->
+<section class="search-section">
+    <div class="container">
+        <form action="<%= contextPath %>/rooms" method="get" class="search-form">
+            <div class="form-group">
+                <label for="checkIn" class="form-label">Check-in</label>
+                <input type="date" id="checkIn" name="checkIn" class="form-control" 
+                       data-min-date="today" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="checkOut" class="form-label">Check-out</label>
+                <input type="date" id="checkOut" name="checkOut" class="form-control" 
+                       data-min-date="today" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="guests" class="form-label">Guests</label>
+                <select id="guests" name="guests" class="form-control">
+                    <option value="1">1 Guest</option>
+                    <option value="2" selected>2 Guests</option>
+                    <option value="3">3 Guests</option>
+                    <option value="4">4 Guests</option>
+                    <option value="5">5+ Guests</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-lg">
+                <i class="fas fa-search"></i> Search Rooms
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#rooms">Rooms</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/login">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-warning text-dark ms-2" href="${pageContext.request.contextPath}/register">
-                            Register
-                        </a>
-                    </li>
-                </ul>
+        </form>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <div class="section-title">
+            <h2>Why Choose Ocean View Resort</h2>
+            <p>Experience world-class hospitality and luxury amenities</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-concierge-bell"></i>
+                </div>
+                <h3>24/7 Service</h3>
+                <p>Round-the-clock assistance to make your stay comfortable and memorable.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-swimming-pool"></i>
+                </div>
+                <h3>Infinity Pool</h3>
+                <p>Stunning infinity pool with breathtaking ocean views.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h3>Spa & Wellness</h3>
+                <p>Rejuvenate your body and mind with our premium spa services.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3>Fine Dining</h3>
+                <p>Exquisite culinary experiences from our award-winning chefs.</p>
             </div>
         </div>
-    </nav>
+    </div>
+</section>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1><i class="fas fa-water"></i> Ocean View Resort</h1>
-            <p>Experience Luxury by the Beach</p>
-            <a href="${pageContext.request.contextPath}/views/guest/search-rooms.jsp" class="btn btn-primary btn-lg">
-                <i class="fas fa-search"></i> Book Your Stay
+<!-- Rooms Section -->
+<section class="rooms">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Rooms & Suites</h2>
+            <p>Choose from our selection of luxurious accommodations</p>
+        </div>
+        
+        <div class="rooms-grid">
+            <div class="room-card">
+                <div class="room-image">
+                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=400" 
+                         alt="Deluxe Room">
+                    <span class="room-badge">Popular</span>
+                </div>
+                <div class="room-info">
+                    <h3 class="room-title">Deluxe Room</h3>
+                    <div class="room-features">
+                        <span class="room-feature">
+                            <i class="fas fa-bed"></i> King Bed
+                        </span>
+                        <span class="room-feature">
+                            <i class="fas fa-users"></i> 2 Guests
+                        </span>
+                        <span class="room-feature">
+                            <i class="fas fa-ruler-combined"></i> 35 m²
+                        </span>
+                    </div>
+                    <p>Spacious room with modern amenities and partial ocean view.</p>
+                    <div class="room-price">
+                        <div class="price">$150 <span>/ night</span></div>
+                        <a href="<%= contextPath %>/rooms?type=DELUXE" class="btn btn-primary">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="room-card">
+                <div class="room-image">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400" 
+                         alt="Ocean Suite">
+                    <span class="room-badge">Luxury</span>
+                </div>
+                <div class="room-info">
+                    <h3 class="room-title">Ocean Suite</h3>
+                    <div class="room-features">
+                        <span class="room-feature">
+                            <i class="fas fa-bed"></i> King Bed
+                        </span>
+                        <span class="room-feature">
+                            <i class="fas fa-users"></i> 4 Guests
+                        </span>
+                        <span class="room-feature">
+                            <i class="fas fa-ruler-combined"></i> 65 m²
+                        </span>
+                    </div>
+                    <p>Luxurious suite with panoramic ocean views and private balcony.</p>
+                    <div class="room-price">
+                        <div class="price">$299 <span>/ night</span></div>
+                        <a href="<%= contextPath %>/rooms?type=SUITE" class="btn btn-primary">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="room-card">
+                <div class="room-image">
+                    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400" 
+                         alt="Presidential Suite">
+                    <span class="room-badge">Premium</span>
+                </div>
+                <div class="room-info">
+                    <h3 class="room-title">Presidential Suite</h3>
+                    <div class="room-features">
+                        <span class="room-feature">
+                            <i class="fas fa-bed"></i> 2 King Beds
+                        </span>
+                        <span class="room-feature">
+                            <i class="fas fa-users"></i> 6 Guests
+                        </span>
+                        <span class="room-feature">
+                            <i class="fas fa-ruler-combined"></i> 120 m²
+                        </span>
+                    </div>
+                    <p>Ultimate luxury with private pool and stunning ocean views.</p>
+                    <div class="room-price">
+                        <div class="price">$599 <span>/ night</span></div>
+                        <a href="<%= contextPath %>/rooms?type=PRESIDENTIAL" class="btn btn-primary">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="<%= contextPath %>/rooms" class="btn btn-outline btn-lg">
+                View All Rooms <i class="fas fa-arrow-right"></i>
             </a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Features Section -->
-    <section class="features-section" id="features">
-        <div class="container">
-            <h2 class="text-center mb-5" style="color: #1e3a8a; font-weight: bold;">Why Choose Us?</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-umbrella-beach"></i>
-                        </div>
-                        <h3>Beachfront Location</h3>
-                        <p>Direct access to pristine beaches with stunning ocean views from your room.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-concierge-bell"></i>
-                        </div>
-                        <h3>24/7 Service</h3>
-                        <p>Round-the-clock concierge and room service for your convenience.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-wifi"></i>
-                        </div>
-                        <h3>Free WiFi</h3>
-                        <p>High-speed internet throughout the resort to keep you connected.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-swimming-pool"></i>
-                        </div>
-                        <h3>Infinity Pool</h3>
-                        <p>Relax in our stunning infinity pool with panoramic ocean views.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                        <h3>Fine Dining</h3>
-                        <p>Gourmet restaurants serving international and local cuisine.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-spa"></i>
-                        </div>
-                        <h3>Luxury Spa</h3>
-                        <p>Rejuvenate with our world-class spa and wellness treatments.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready for Your Perfect Getaway?</h2>
+        <p>Book your stay today and experience luxury like never before</p>
+        <a href="<%= contextPath %>/rooms" class="btn btn-white btn-lg">
+            <i class="fas fa-calendar-check"></i> Book Now
+        </a>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4">
-        <div class="container">
-            <p>&copy; 2026 Ocean View Resort. All rights reserved.</p>
-            <p>
-                <i class="fas fa-map-marker-alt"></i> Galle, Sri Lanka | 
-                <i class="fas fa-phone"></i> +94 91 234 5678 | 
-                <i class="fas fa-envelope"></i> info@oceanviewresort.com
-            </p>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<jsp:include page="views/common/footer.jsp" />

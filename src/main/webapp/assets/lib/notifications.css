@@ -1,0 +1,228 @@
+/* Notifications Styles */
+
+.notifications-container {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.notifications-container.top-right {
+    top: 20px;
+    right: 20px;
+}
+
+.notifications-container.top-left {
+    top: 20px;
+    left: 20px;
+}
+
+.notifications-container.bottom-right {
+    bottom: 20px;
+    right: 20px;
+}
+
+.notifications-container.bottom-left {
+    bottom: 20px;
+    left: 20px;
+}
+
+.notifications-container.top-center {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.notifications-container.bottom-center {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.notification {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 300px;
+    max-width: 400px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    pointer-events: auto;
+    position: relative;
+}
+
+.notification-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.notification-message {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #666;
+}
+
+.notification-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.notification-close:hover {
+    color: #333;
+}
+
+/* Notification Types */
+.notification-success {
+    border-left: 4px solid #28A745;
+}
+
+.notification-success .notification-icon {
+    color: #28A745;
+}
+
+.notification-error {
+    border-left: 4px solid #DC3545;
+}
+
+.notification-error .notification-icon {
+    color: #DC3545;
+}
+
+.notification-warning {
+    border-left: 4px solid #FFC107;
+}
+
+.notification-warning .notification-icon {
+    color: #FFC107;
+}
+
+.notification-info {
+    border-left: 4px solid #17A2B8;
+}
+
+.notification-info .notification-icon {
+    color: #17A2B8;
+}
+
+/* Confirm Notification */
+.notification-confirm {
+    border-left: 4px solid #006994;
+}
+
+.notification-confirm .notification-icon {
+    color: #006994;
+}
+
+.notification-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.notification-confirm-btn,
+.notification-cancel-btn {
+    padding: 6px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.notification-confirm-btn {
+    background: #006994;
+    color: white;
+}
+
+.notification-confirm-btn:hover {
+    background: #005275;
+}
+
+.notification-cancel-btn {
+    background: #f0f0f0;
+    color: #666;
+}
+
+.notification-cancel-btn:hover {
+    background: #e0e0e0;
+}
+
+/* Animations */
+.notification-enter {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.notification-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.3s ease-out;
+}
+
+.notification-exit {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease-in;
+}
+
+/* Left position animations */
+.notifications-container.top-left .notification-enter,
+.notifications-container.bottom-left .notification-enter {
+    transform: translateX(-100%);
+}
+
+.notifications-container.top-left .notification-exit,
+.notifications-container.bottom-left .notification-exit {
+    transform: translateX(-100%);
+}
+
+/* Center position animations */
+.notifications-container.top-center .notification-enter,
+.notifications-container.bottom-center .notification-enter {
+    transform: translateY(-100%) translateX(-50%);
+}
+
+.notifications-container.top-center .notification-enter-active,
+.notifications-container.bottom-center .notification-enter-active {
+    transform: translateY(0) translateX(-50%);
+}
+
+.notifications-container.top-center .notification-exit,
+.notifications-container.bottom-center .notification-exit {
+    transform: translateY(-100%) translateX(-50%);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .notification {
+        min-width: 280px;
+        max-width: calc(100vw - 40px);
+    }
+    
+    .notifications-container {
+        left: 10px !important;
+        right: 10px !important;
+        transform: none !important;
+    }
+}
