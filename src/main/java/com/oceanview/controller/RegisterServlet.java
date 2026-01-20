@@ -56,11 +56,18 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
         String email = request.getParameter("email");
-        String fullName = request.getParameter("fullName");
         String phone = request.getParameter("phone");
         
+        // Get firstName and lastName, combine into fullName
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String fullName = null;
+        if (firstName != null && lastName != null) {
+            fullName = (firstName.trim() + " " + lastName.trim()).trim();
+        }
+        
         // Validate input
-        String validationError = validateInput(username, password, confirmPassword, email, fullName);
+        String validationError = validateInput(username, password, confirmPassword, email, firstName, lastName);
         if (validationError != null) {
             request.setAttribute(Constants.ATTR_ERROR, validationError);
             request.getRequestDispatcher("/views/auth/register.jsp").forward(request, response);
@@ -123,7 +130,7 @@ public class RegisterServlet extends HttpServlet {
      * Validate registration input
      */
     private String validateInput(String username, String password, String confirmPassword, 
-                                 String email, String fullName) {
+                                 String email, String firstName, String lastName) {
         
         // Check required fields
         if (username == null || username.trim().isEmpty()) {
@@ -142,8 +149,12 @@ public class RegisterServlet extends HttpServlet {
             return "Email is required";
         }
         
-        if (fullName == null || fullName.trim().isEmpty()) {
-            return "Full name is required";
+        if (firstName == null || firstName.trim().isEmpty()) {
+            return "First name is required";
+        }
+        
+        if (lastName == null || lastName.trim().isEmpty()) {
+            return "Last name is required";
         }
         
         // Validate username format
