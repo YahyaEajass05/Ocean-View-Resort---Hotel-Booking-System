@@ -53,20 +53,24 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String username = request.getParameter("username");
+        // Accept both "email" and "username" parameters for flexibility
+        String emailOrUsername = request.getParameter("email");
+        if (emailOrUsername == null || emailOrUsername.trim().isEmpty()) {
+            emailOrUsername = request.getParameter("username");
+        }
         String password = request.getParameter("password");
         
         // Validate input
-        if (username == null || username.trim().isEmpty() || 
+        if (emailOrUsername == null || emailOrUsername.trim().isEmpty() || 
             password == null || password.trim().isEmpty()) {
             
-            request.setAttribute(Constants.ATTR_ERROR, "Username and password are required");
+            request.setAttribute(Constants.ATTR_ERROR, "Email/Username and password are required");
             request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
             return;
         }
         
         // Authenticate user
-        Optional<User> userOpt = authService.authenticate(username.trim(), password);
+        Optional<User> userOpt = authService.authenticate(emailOrUsername.trim(), password);
         
         if (userOpt.isPresent()) {
             User user = userOpt.get();
@@ -82,7 +86,7 @@ public class LoginServlet extends HttpServlet {
             // Set session timeout (30 minutes)
             session.setMaxInactiveInterval(30 * 60);
             
-            logger.info("User logged in successfully: {}", username);
+            logger.info("User logged in successfully: {}", emailOrUsername);
             
             // Check for redirect URL
             String redirectURL = (String) session.getAttribute("redirectURL");
@@ -95,7 +99,7 @@ public class LoginServlet extends HttpServlet {
             
         } else {
             // Authentication failed
-            logger.warn("Login failed for username: {}", username);
+            logger.warn("Login failed for username: {}", emailOrUsername);
             request.setAttribute(Constants.ATTR_ERROR, Constants.MSG_LOGIN_FAILED);
             request.getRequestDispatcher("/views/auth/login.jsp").forward(request, response);
         }
