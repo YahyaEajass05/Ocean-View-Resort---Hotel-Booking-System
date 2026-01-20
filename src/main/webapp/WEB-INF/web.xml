@@ -235,6 +235,19 @@
     </servlet-mapping>
 
     <!-- ========================================= -->
+    <!-- SERVLETS - Guest Home -->
+    <!-- ========================================= -->
+
+    <servlet>
+        <servlet-name>GuestHomeServlet</servlet-name>
+        <servlet-class>com.oceanview.controller.GuestHomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuestHomeServlet</servlet-name>
+        <url-pattern>/guest/home</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
     <!-- ERROR PAGES -->
     <!-- ========================================= -->
 
