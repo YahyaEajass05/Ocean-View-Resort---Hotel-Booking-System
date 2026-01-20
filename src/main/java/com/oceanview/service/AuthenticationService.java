@@ -29,18 +29,23 @@ public class AuthenticationService {
     }
     
     /**
-     * Authenticate user with username and password
-     * @param username Username
+     * Authenticate user with username or email and password
+     * @param usernameOrEmail Username or email address
      * @param password Plain text password
      * @return Optional User if authentication successful
      */
-    public Optional<User> authenticate(String username, String password) {
+    public Optional<User> authenticate(String usernameOrEmail, String password) {
         try {
-            // Find user by username
-            Optional<User> userOpt = userDAO.findByUsername(username);
+            // Find user by username first
+            Optional<User> userOpt = userDAO.findByUsername(usernameOrEmail);
+            
+            // If not found by username, try email
+            if (userOpt.isEmpty()) {
+                userOpt = userDAO.findByEmail(usernameOrEmail);
+            }
             
             if (userOpt.isEmpty()) {
-                logger.warn("Authentication failed: User not found - {}", username);
+                logger.warn("Authentication failed: User not found - {}", usernameOrEmail);
                 return Optional.empty();
             }
             
@@ -48,7 +53,7 @@ public class AuthenticationService {
             
             // Check if user is active
             if (!user.isActive()) {
-                logger.warn("Authentication failed: User not active - {}", username);
+                logger.warn("Authentication failed: User not active - {}", usernameOrEmail);
                 return Optional.empty();
             }
             
@@ -56,15 +61,15 @@ public class AuthenticationService {
             if (PasswordUtil.verifyPassword(password, user.getPassword())) {
                 // Update last login timestamp
                 userDAO.updateLastLogin(user.getUserId());
-                logger.info("Authentication successful for user: {}", username);
+                logger.info("Authentication successful for user: {}", usernameOrEmail);
                 return Optional.of(user);
             } else {
-                logger.warn("Authentication failed: Invalid password for user - {}", username);
+                logger.warn("Authentication failed: Invalid password for user - {}", usernameOrEmail);
                 return Optional.empty();
             }
             
         } catch (SQLException e) {
-            logger.error("Error during authentication for user: {}", username, e);
+            logger.error("Error during authentication for user: {}", usernameOrEmail, e);
             return Optional.empty();
         }
     }
