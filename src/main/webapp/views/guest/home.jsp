@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.oceanview.model.User" %>
 <%
-    // Authentication check
-    User currentUser = (User) session.getAttribute("user");
+    // Authentication check - use "loggedInUser" as set by LoginServlet
+    User currentUser = (User) session.getAttribute("loggedInUser");
     if (currentUser == null || !"GUEST".equals(currentUser.getRole().toString())) {
         response.sendRedirect(request.getContextPath() + "/login");
         return;
