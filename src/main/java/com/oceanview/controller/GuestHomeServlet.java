@@ -29,13 +29,13 @@ public class GuestHomeServlet extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         
-        // Check if user is logged in
-        if (session == null || session.getAttribute("user") == null) {
+        // Check if user is logged in - use "loggedInUser" as set by LoginServlet
+        if (session == null || session.getAttribute("loggedInUser") == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
         
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("loggedInUser");
         
         // Check if user has GUEST role
         if (!"GUEST".equals(user.getRole().toString())) {
