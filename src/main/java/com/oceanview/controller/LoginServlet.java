@@ -114,11 +114,11 @@ public class LoginServlet extends HttpServlet {
         String contextPath = request.getContextPath();
         
         if (user.isAdmin()) {
-            response.sendRedirect(contextPath + "/admin/dashboard.jsp");
+            response.sendRedirect(contextPath + "/dashboard");
         } else if (user.isStaff()) {
-            response.sendRedirect(contextPath + "/staff/dashboard.jsp");
+            response.sendRedirect(contextPath + "/dashboard");
         } else {
-            response.sendRedirect(contextPath + "/guest/home.jsp");
+            response.sendRedirect(contextPath + "/guest/home");
         }
     }
 }
