@@ -179,21 +179,86 @@ public class EmailService {
      */
     private String buildBookingConfirmationEmail(User user, Reservation reservation) {
         return String.format(
+            "<!DOCTYPE html>" +
             "<html>" +
-            "<body style=\"font-family: Arial, sans-serif;\">" +
-                "<h2>Booking Confirmation</h2>" +
-                "<p>Dear %s,</p>" +
-                "<p>Thank you for choosing Ocean View Resort! Your booking has been confirmed.</p>" +
-                "<h3>Reservation Details:</h3>" +
-                "<ul>" +
-                    "<li><strong>Reservation Number:</strong> %s</li>" +
-                    "<li><strong>Check-in Date:</strong> %s</li>" +
-                    "<li><strong>Check-out Date:</strong> %s</li>" +
-                    "<li><strong>Number of Nights:</strong> %d</li>" +
-                    "<li><strong>Total Amount:</strong> $%.2f</li>" +
-                "</ul>" +
-                "<p>We look forward to welcoming you!</p>" +
-                "<p>Best regards,<br>Ocean View Resort Team</p>" +
+            "<head>" +
+                "<meta charset=\"UTF-8\">" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
+            "</head>" +
+            "<body style=\"margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; background-color: #f4f4f4;\">" +
+                "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #f4f4f4; padding: 20px 0;\">" +
+                    "<tr>" +
+                        "<td align=\"center\">" +
+                            "<table width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);\">" +
+                                "<!-- Header -->" +
+                                "<tr>" +
+                                    "<td style=\"background: linear-gradient(135deg, #006994 0%%, #003d5c 100%%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;\">" +
+                                        "<h1 style=\"margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;\">Ocean View Resort</h1>" +
+                                        "<p style=\"margin: 5px 0 0 0; color: #F5E6D3; font-size: 14px;\">Your Paradise by the Sea</p>" +
+                                    "</td>" +
+                                "</tr>" +
+                                "<!-- Content -->" +
+                                "<tr>" +
+                                    "<td style=\"padding: 40px 30px;\">" +
+                                        "<h2 style=\"margin: 0 0 20px 0; color: #006994; font-size: 24px;\">✓ Booking Confirmed!</h2>" +
+                                        "<p style=\"margin: 0 0 20px 0; color: #333333; font-size: 16px; line-height: 1.6;\">Dear <strong>%s</strong>,</p>" +
+                                        "<p style=\"margin: 0 0 30px 0; color: #333333; font-size: 16px; line-height: 1.6;\">Thank you for choosing Ocean View Resort! We're delighted to confirm your reservation. Get ready for an unforgettable experience!</p>" +
+                                        
+                                        "<!-- Reservation Details Box -->" +
+                                        "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #f8f9fa; border-radius: 8px; margin-bottom: 30px;\">" +
+                                            "<tr>" +
+                                                "<td style=\"padding: 20px;\">" +
+                                                    "<h3 style=\"margin: 0 0 15px 0; color: #006994; font-size: 18px;\">Reservation Details</h3>" +
+                                                    "<table width=\"100%%\" cellpadding=\"8\" cellspacing=\"0\" border=\"0\">" +
+                                                        "<tr>" +
+                                                            "<td style=\"color: #666666; font-size: 14px; padding: 8px 0;\">Reservation Number:</td>" +
+                                                            "<td style=\"color: #333333; font-size: 14px; font-weight: bold; text-align: right; padding: 8px 0;\">%s</td>" +
+                                                        "</tr>" +
+                                                        "<tr style=\"border-top: 1px solid #e0e0e0;\">" +
+                                                            "<td style=\"color: #666666; font-size: 14px; padding: 8px 0;\">Check-in Date:</td>" +
+                                                            "<td style=\"color: #333333; font-size: 14px; font-weight: bold; text-align: right; padding: 8px 0;\">%s</td>" +
+                                                        "</tr>" +
+                                                        "<tr style=\"border-top: 1px solid #e0e0e0;\">" +
+                                                            "<td style=\"color: #666666; font-size: 14px; padding: 8px 0;\">Check-out Date:</td>" +
+                                                            "<td style=\"color: #333333; font-size: 14px; font-weight: bold; text-align: right; padding: 8px 0;\">%s</td>" +
+                                                        "</tr>" +
+                                                        "<tr style=\"border-top: 1px solid #e0e0e0;\">" +
+                                                            "<td style=\"color: #666666; font-size: 14px; padding: 8px 0;\">Number of Nights:</td>" +
+                                                            "<td style=\"color: #333333; font-size: 14px; font-weight: bold; text-align: right; padding: 8px 0;\">%d</td>" +
+                                                        "</tr>" +
+                                                        "<tr style=\"border-top: 2px solid #006994;\">" +
+                                                            "<td style=\"color: #006994; font-size: 16px; font-weight: bold; padding: 12px 0 0 0;\">Total Amount:</td>" +
+                                                            "<td style=\"color: #006994; font-size: 18px; font-weight: bold; text-align: right; padding: 12px 0 0 0;\">$%.2f</td>" +
+                                                        "</tr>" +
+                                                    "</table>" +
+                                                "</td>" +
+                                            "</tr>" +
+                                        "</table>" +
+                                        
+                                        "<!-- Important Info -->" +
+                                        "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #e8f4f8; border-left: 4px solid #006994; border-radius: 5px; margin-bottom: 30px;\">" +
+                                            "<tr>" +
+                                                "<td style=\"padding: 15px 20px;\">" +
+                                                    "<p style=\"margin: 0; color: #0c5460; font-size: 14px; line-height: 1.5;\"><strong>Check-in Time:</strong> 2:00 PM<br><strong>Check-out Time:</strong> 12:00 PM</p>" +
+                                                "</td>" +
+                                            "</tr>" +
+                                        "</table>" +
+                                        
+                                        "<p style=\"margin: 0 0 20px 0; color: #333333; font-size: 16px; line-height: 1.6;\">We look forward to welcoming you and making your stay extraordinary!</p>" +
+                                        "<p style=\"margin: 0; color: #333333; font-size: 16px; line-height: 1.6;\">Best regards,<br><strong style=\"color: #006994;\">Ocean View Resort Team</strong></p>" +
+                                    "</td>" +
+                                "</tr>" +
+                                "<!-- Footer -->" +
+                                "<tr>" +
+                                    "<td style=\"background-color: #f8f9fa; padding: 20px 30px; text-align: center; border-radius: 0 0 10px 10px;\">" +
+                                        "<p style=\"margin: 0 0 10px 0; color: #666666; font-size: 12px;\">Ocean View Resort | 123 Beach Road, Paradise Island</p>" +
+                                        "<p style=\"margin: 0; color: #666666; font-size: 12px;\">Phone: +1 (555) 123-4567 | Email: info@oceanviewresort.com</p>" +
+                                    "</td>" +
+                                "</tr>" +
+                            "</table>" +
+                        "</td>" +
+                    "</tr>" +
+                "</table>" +
             "</body>" +
             "</html>",
             user.getFullName(),
@@ -210,25 +275,44 @@ public class EmailService {
      */
     private String buildCancellationEmail(User user, Reservation reservation) {
         return String.format(
+            "<!DOCTYPE html>" +
             "<html>" +
-            "<body style=\"font-family: Arial, sans-serif;\">" +
-                "<h2>Booking Cancellation</h2>" +
-                "<p>Dear %s,</p>" +
-                "<p>Your booking has been cancelled as per your request.</p>" +
-                "<h3>Cancelled Reservation:</h3>" +
-                "<ul>" +
-                    "<li><strong>Reservation Number:</strong> %s</li>" +
-                    "<li><strong>Check-in Date:</strong> %s</li>" +
-                    "<li><strong>Check-out Date:</strong> %s</li>" +
-                "</ul>" +
-                "<p>We hope to serve you in the future!</p>" +
-                "<p>Best regards,<br>Ocean View Resort Team</p>" +
-            "</body>" +
-            "</html>",
-            user.getFullName(),
-            reservation.getReservationNumber(),
-            reservation.getCheckInDate(),
-            reservation.getCheckOutDate()
+            "<head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"></head>" +
+            "<body style=\"margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; background-color: #f4f4f4;\">" +
+                "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #f4f4f4; padding: 20px 0;\">" +
+                    "<tr><td align=\"center\">" +
+                        "<table width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);\">" +
+                            "<tr><td style=\"background: linear-gradient(135deg, #006994 0%%, #003d5c 100%%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;\">" +
+                                "<h1 style=\"margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;\">Ocean View Resort</h1>" +
+                                "<p style=\"margin: 5px 0 0 0; color: #F5E6D3; font-size: 14px;\">Your Paradise by the Sea</p>" +
+                            "</td></tr>" +
+                            "<tr><td style=\"padding: 40px 30px;\">" +
+                                "<h2 style=\"margin: 0 0 20px 0; color: #DC3545; font-size: 24px;\">Booking Cancelled</h2>" +
+                                "<p style=\"margin: 0 0 20px 0; color: #333333; font-size: 16px; line-height: 1.6;\">Dear <strong>%s</strong>,</p>" +
+                                "<p style=\"margin: 0 0 30px 0; color: #333333; font-size: 16px; line-height: 1.6;\">Your booking has been cancelled as per your request.</p>" +
+                                "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #f8f9fa; border-radius: 8px; margin-bottom: 30px;\">" +
+                                    "<tr><td style=\"padding: 20px;\">" +
+                                        "<h3 style=\"margin: 0 0 15px 0; color: #DC3545; font-size: 18px;\">Cancelled Reservation</h3>" +
+                                        "<table width=\"100%%\" cellpadding=\"8\" cellspacing=\"0\" border=\"0\">" +
+                                            "<tr><td style=\"color: #666666; font-size: 14px;\">Reservation Number:</td><td style=\"color: #333333; font-size: 14px; font-weight: bold; text-align: right;\">%s</td></tr>" +
+                                            "<tr style=\"border-top: 1px solid #e0e0e0;\"><td style=\"color: #666666; font-size: 14px;\">Check-in Date:</td><td style=\"color: #333333; font-size: 14px; font-weight: bold; text-align: right;\">%s</td></tr>" +
+                                            "<tr style=\"border-top: 1px solid #e0e0e0;\"><td style=\"color: #666666; font-size: 14px;\">Check-out Date:</td><td style=\"color: #333333; font-size: 14px; font-weight: bold; text-align: right;\">%s</td></tr>" +
+                                        "</table>" +
+                                    "</td></tr>" +
+                                "</table>" +
+                                "<p style=\"margin: 0 0 20px 0; color: #333333; font-size: 16px; line-height: 1.6;\">We hope to have the opportunity to serve you in the future!</p>" +
+                                "<p style=\"margin: 0; color: #333333; font-size: 16px;\">Best regards,<br><strong style=\"color: #006994;\">Ocean View Resort Team</strong></p>" +
+                            "</td></tr>" +
+                            "<tr><td style=\"background-color: #f8f9fa; padding: 20px 30px; text-align: center; border-radius: 0 0 10px 10px;\">" +
+                                "<p style=\"margin: 0 0 10px 0; color: #666666; font-size: 12px;\">Ocean View Resort | 123 Beach Road, Paradise Island</p>" +
+                                "<p style=\"margin: 0; color: #666666; font-size: 12px;\">Phone: +1 (555) 123-4567 | Email: info@oceanviewresort.com</p>" +
+                            "</td></tr>" +
+                        "</table>" +
+                    "</td></tr>" +
+                "</table>" +
+            "</body></html>",
+            user.getFullName(), reservation.getReservationNumber(),
+            reservation.getCheckInDate(), reservation.getCheckOutDate()
         );
     }
     
@@ -237,26 +321,45 @@ public class EmailService {
      */
     private String buildCheckInReminderEmail(User user, Reservation reservation) {
         return String.format(
-            "<html>" +
-            "<body style=\"font-family: Arial, sans-serif;\">" +
-                "<h2>Check-in Reminder</h2>" +
-                "<p>Dear %s,</p>" +
-                "<p>This is a reminder that your check-in is scheduled for tomorrow.</p>" +
-                "<h3>Reservation Details:</h3>" +
-                "<ul>" +
-                    "<li><strong>Reservation Number:</strong> %s</li>" +
-                    "<li><strong>Check-in Date:</strong> %s</li>" +
-                    "<li><strong>Check-out Date:</strong> %s</li>" +
-                "</ul>" +
-                "<p>Check-in time: 2:00 PM<br>Check-out time: 12:00 PM</p>" +
-                "<p>We look forward to welcoming you!</p>" +
-                "<p>Best regards,<br>Ocean View Resort Team</p>" +
-            "</body>" +
-            "</html>",
-            user.getFullName(),
-            reservation.getReservationNumber(),
-            reservation.getCheckInDate(),
-            reservation.getCheckOutDate()
+            "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"></head>" +
+            "<body style=\"margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; background-color: #f4f4f4;\">" +
+                "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #f4f4f4; padding: 20px 0;\">" +
+                    "<tr><td align=\"center\"><table width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);\">" +
+                        "<tr><td style=\"background: linear-gradient(135deg, #006994 0%%, #003d5c 100%%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;\">" +
+                            "<h1 style=\"margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;\">Ocean View Resort</h1>" +
+                            "<p style=\"margin: 5px 0 0 0; color: #F5E6D3; font-size: 14px;\">Your Paradise by the Sea</p>" +
+                        "</td></tr>" +
+                        "<tr><td style=\"padding: 40px 30px;\">" +
+                            "<h2 style=\"margin: 0 0 20px 0; color: #FFC107; font-size: 24px;\">⏰ Check-in Reminder</h2>" +
+                            "<p style=\"margin: 0 0 20px 0; color: #333333; font-size: 16px; line-height: 1.6;\">Dear <strong>%s</strong>,</p>" +
+                            "<p style=\"margin: 0 0 30px 0; color: #333333; font-size: 16px; line-height: 1.6;\">We're excited to welcome you tomorrow! This is a friendly reminder about your upcoming check-in.</p>" +
+                            "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #FFF8E1; border-left: 4px solid #FFC107; border-radius: 5px; margin-bottom: 20px;\">" +
+                                "<tr><td style=\"padding: 20px;\">" +
+                                    "<h3 style=\"margin: 0 0 15px 0; color: #F57C00; font-size: 18px;\">Your Reservation</h3>" +
+                                    "<table width=\"100%%\" cellpadding=\"8\" cellspacing=\"0\" border=\"0\">" +
+                                        "<tr><td style=\"color: #666666; font-size: 14px;\">Reservation Number:</td><td style=\"color: #333333; font-size: 14px; font-weight: bold; text-align: right;\">%s</td></tr>" +
+                                        "<tr style=\"border-top: 1px solid #FFE082;\"><td style=\"color: #666666; font-size: 14px;\">Check-in Date:</td><td style=\"color: #333333; font-size: 14px; font-weight: bold; text-align: right;\">%s</td></tr>" +
+                                        "<tr style=\"border-top: 1px solid #FFE082;\"><td style=\"color: #666666; font-size: 14px;\">Check-out Date:</td><td style=\"color: #333333; font-size: 14px; font-weight: bold; text-align: right;\">%s</td></tr>" +
+                                    "</table>" +
+                                "</td></tr>" +
+                            "</table>" +
+                            "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #e8f4f8; border-radius: 5px; margin-bottom: 20px;\">" +
+                                "<tr><td style=\"padding: 15px 20px; text-align: center;\">" +
+                                    "<p style=\"margin: 0; color: #0c5460; font-size: 16px; font-weight: bold;\">Check-in Time: 2:00 PM | Check-out Time: 12:00 PM</p>" +
+                                "</td></tr>" +
+                            "</table>" +
+                            "<p style=\"margin: 0 0 20px 0; color: #333333; font-size: 16px; line-height: 1.6;\">We look forward to welcoming you and ensuring you have a memorable stay!</p>" +
+                            "<p style=\"margin: 0; color: #333333; font-size: 16px;\">Best regards,<br><strong style=\"color: #006994;\">Ocean View Resort Team</strong></p>" +
+                        "</td></tr>" +
+                        "<tr><td style=\"background-color: #f8f9fa; padding: 20px 30px; text-align: center; border-radius: 0 0 10px 10px;\">" +
+                            "<p style=\"margin: 0 0 10px 0; color: #666666; font-size: 12px;\">Ocean View Resort | 123 Beach Road, Paradise Island</p>" +
+                            "<p style=\"margin: 0; color: #666666; font-size: 12px;\">Phone: +1 (555) 123-4567 | Email: info@oceanviewresort.com</p>" +
+                        "</td></tr>" +
+                    "</table></td></tr>" +
+                "</table>" +
+            "</body></html>",
+            user.getFullName(), reservation.getReservationNumber(),
+            reservation.getCheckInDate(), reservation.getCheckOutDate()
         );
     }
     
@@ -265,22 +368,65 @@ public class EmailService {
      */
     private String buildWelcomeEmail(User user) {
         return String.format(
-            "<html>" +
-            "<body style=\"font-family: Arial, sans-serif;\">" +
-                "<h2>Welcome to Ocean View Resort!</h2>" +
-                "<p>Dear %s,</p>" +
-                "<p>Thank you for registering with Ocean View Resort.</p>" +
-                "<p>Your account has been created successfully. You can now:</p>" +
-                "<ul>" +
-                    "<li>Search and book available rooms</li>" +
-                    "<li>View your booking history</li>" +
-                    "<li>Manage your profile</li>" +
-                    "<li>Rate and review your stays</li>" +
-                "</ul>" +
-                "<p>Experience luxury by the beach!</p>" +
-                "<p>Best regards,<br>Ocean View Resort Team</p>" +
-            "</body>" +
-            "</html>",
+            "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"></head>" +
+            "<body style=\"margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; background-color: #f4f4f4;\">" +
+                "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #f4f4f4; padding: 20px 0;\">" +
+                    "<tr><td align=\"center\"><table width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);\">" +
+                        "<tr><td style=\"background: linear-gradient(135deg, #006994 0%%, #003d5c 100%%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;\">" +
+                            "<h1 style=\"margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;\">🌊 Ocean View Resort</h1>" +
+                            "<p style=\"margin: 5px 0 0 0; color: #F5E6D3; font-size: 14px;\">Your Paradise by the Sea</p>" +
+                        "</td></tr>" +
+                        "<tr><td style=\"padding: 40px 30px;\">" +
+                            "<h2 style=\"margin: 0 0 20px 0; color: #28A745; font-size: 24px;\">Welcome to Ocean View Resort!</h2>" +
+                            "<p style=\"margin: 0 0 20px 0; color: #333333; font-size: 16px; line-height: 1.6;\">Dear <strong>%s</strong>,</p>" +
+                            "<p style=\"margin: 0 0 30px 0; color: #333333; font-size: 16px; line-height: 1.6;\">Thank you for joining Ocean View Resort! We're thrilled to have you as part of our family. Your account has been created successfully and you're ready to start exploring.</p>" +
+                            "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color: #f8f9fa; border-radius: 8px; margin-bottom: 30px;\">" +
+                                "<tr><td style=\"padding: 25px;\">" +
+                                    "<h3 style=\"margin: 0 0 15px 0; color: #006994; font-size: 18px;\">What You Can Do Now:</h3>" +
+                                    "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">" +
+                                        "<tr><td style=\"padding: 10px 0;\">" +
+                                            "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr>" +
+                                                "<td style=\"width: 30px; vertical-align: top;\"><span style=\"color: #28A745; font-size: 20px; font-weight: bold;\">✓</span></td>" +
+                                                "<td style=\"color: #333333; font-size: 15px; line-height: 1.5;\">Search and book available rooms with instant confirmation</td>" +
+                                            "</tr></table>" +
+                                        "</td></tr>" +
+                                        "<tr><td style=\"padding: 10px 0; border-top: 1px solid #e0e0e0;\">" +
+                                            "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr>" +
+                                                "<td style=\"width: 30px; vertical-align: top;\"><span style=\"color: #28A745; font-size: 20px; font-weight: bold;\">✓</span></td>" +
+                                                "<td style=\"color: #333333; font-size: 15px; line-height: 1.5;\">View and manage your booking history</td>" +
+                                            "</tr></table>" +
+                                        "</td></tr>" +
+                                        "<tr><td style=\"padding: 10px 0; border-top: 1px solid #e0e0e0;\">" +
+                                            "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr>" +
+                                                "<td style=\"width: 30px; vertical-align: top;\"><span style=\"color: #28A745; font-size: 20px; font-weight: bold;\">✓</span></td>" +
+                                                "<td style=\"color: #333333; font-size: 15px; line-height: 1.5;\">Update your profile and preferences</td>" +
+                                            "</tr></table>" +
+                                        "</td></tr>" +
+                                        "<tr><td style=\"padding: 10px 0; border-top: 1px solid #e0e0e0;\">" +
+                                            "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr>" +
+                                                "<td style=\"width: 30px; vertical-align: top;\"><span style=\"color: #28A745; font-size: 20px; font-weight: bold;\">✓</span></td>" +
+                                                "<td style=\"color: #333333; font-size: 15px; line-height: 1.5;\">Rate and review your stays to help others</td>" +
+                                            "</tr></table>" +
+                                        "</td></tr>" +
+                                    "</table>" +
+                                "</td></tr>" +
+                            "</table>" +
+                            "<table width=\"100%%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background: linear-gradient(135deg, #e8f4f8 0%%, #d4ebf5 100%%); border-radius: 8px; margin-bottom: 30px;\">" +
+                                "<tr><td style=\"padding: 20px; text-align: center;\">" +
+                                    "<p style=\"margin: 0 0 10px 0; color: #006994; font-size: 18px; font-weight: bold;\">Experience Luxury by the Beach!</p>" +
+                                    "<p style=\"margin: 0; color: #0c5460; font-size: 14px;\">Special offers and exclusive deals await you</p>" +
+                                "</td></tr>" +
+                            "</table>" +
+                            "<p style=\"margin: 0 0 20px 0; color: #333333; font-size: 16px; line-height: 1.6;\">We're excited to be part of your travel journey!</p>" +
+                            "<p style=\"margin: 0; color: #333333; font-size: 16px;\">Warm regards,<br><strong style=\"color: #006994;\">Ocean View Resort Team</strong></p>" +
+                        "</td></tr>" +
+                        "<tr><td style=\"background-color: #f8f9fa; padding: 20px 30px; text-align: center; border-radius: 0 0 10px 10px;\">" +
+                            "<p style=\"margin: 0 0 10px 0; color: #666666; font-size: 12px;\">Ocean View Resort | 123 Beach Road, Paradise Island</p>" +
+                            "<p style=\"margin: 0; color: #666666; font-size: 12px;\">Phone: +1 (555) 123-4567 | Email: info@oceanviewresort.com</p>" +
+                        "</td></tr>" +
+                    "</table></td></tr>" +
+                "</table>" +
+            "</body></html>",
             user.getFullName()
         );
     }
