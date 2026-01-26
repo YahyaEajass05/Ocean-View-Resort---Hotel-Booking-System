@@ -248,6 +248,19 @@
     </servlet-mapping>
 
     <!-- ========================================= -->
+    <!-- SERVLETS - Admin Dashboard -->
+    <!-- ========================================= -->
+
+    <servlet>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <servlet-class>com.oceanview.controller.AdminDashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================= -->
     <!-- ERROR PAGES -->
     <!-- ========================================= -->
 
